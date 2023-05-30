@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +17,19 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            'name'=> 'Men'
+            'name'=> 'Men',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
         DB::table('categories')->insert([
-            'name'=> 'Lady'
+            'name'=> 'Lady',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
         DB::table('categories')->insert([
-            'name'=> 'Kids'
+            'name'=> 'Kids',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
     }
 }

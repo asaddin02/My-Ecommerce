@@ -2,19 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\Shop;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ShopController extends Controller
+class LandingpageController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,21 +14,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $products =  Product::all();
-        $preloader = true;
-        return view('shop.shop',compact('products','categories','preloader'));
-    }
-
-    public function category($id)
-    {
-        $categories = Category::all();
-        $products = Product::where('category_id',$id)->paginate(8);
-        return view('shop.shop',compact('products','categories'));
-        // return response()->json([
-        //     'success' => true,
-        //     'product' => $products,
-        // ]);
+        $products = Product::paginate(10);
+        return view('landingpage', compact('products'));
     }
 
     /**
@@ -63,21 +42,21 @@ class ShopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shop)
+    public function show($id)
     {
-        return view('detail.shop');
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shop $shop)
+    public function edit($id)
     {
         //
     }
@@ -86,10 +65,10 @@ class ShopController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -97,13 +76,11 @@ class ShopController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Shop  $shop
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shop $shop)
+    public function destroy($id)
     {
         //
     }
-
-    
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\LandingpageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\TransaksiController;
@@ -20,15 +21,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('profile', function () {
-    return view('profile');
-});
+// Route::get('/', function () {
+//     return view('landingpage');
+// });
+
+Route::resource('/', LandingpageController::class);
+Route::resource('/shop',ShopController::class);
 
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::resource('product',ProductController::class);
     Route::resource('profile',UserController::class);
-    Route::resource('shop',ShopController::class);
     Route::resource('cart',CartController::class);
     Route::resource('transaksi',TransaksiController::class);
     Route::put('password{id}',[UserController::class,'password'])->name('password');
@@ -39,7 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('checkout',[CartController::class,'checkout']);
 });
 
-Route::resource('/',WelcomeController::class);
 Route::get('productlogin',[ProductController::class,'login'])->name('loginfisrt');
 Route::get('contact',[UserController::class,'contact'])->name('contact');
 Route::post('send',[UserController::class,'send'])->name('send');

@@ -1,6 +1,37 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container mt-5" id="shop-content">
+@extends('layouts.template')
+
+@section('title', 'Shop Page')
+
+@section('main')
+
+    @include('trending')
+
+    <section class="brand_section mt-5" id="hottest">
+        <div class="container">
+            <div class="heading_container">
+                <h2>
+                    Featured Brands
+                </h2>
+            </div>
+            <div class="brand_container layout_padding2">
+                @foreach ($products as $product)
+                    <div class="box position-relative">
+                        <a href="{{ url('detail/product/' . $product->id) }}">
+                            <div class="img-box">
+                                <img src="{{ $product->image }}" alt="{{ $product->image }}">
+                            </div>
+                            <div class="detail-box position-absolute product-description">
+                                <h6 class="price">Rp. {{ $product->price }}</h6>
+                                <h6>{{ $product->name }}</h6>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- <div class="container mt-5" id="shop-content">
         <div class="row mb-5">
             <div class="col-md-3 position-relative">
                 <h5 style="font-family: Poppins; border-top-left-radius: 0.375rem;
@@ -58,7 +89,7 @@
         <div class="mb-5">
             {{ $products->Links('pagination::bootstrap-5') }}
         </div>
-    </div>
+    </div> --}}
 
     {{-- ajax --}}
     {{-- <script>

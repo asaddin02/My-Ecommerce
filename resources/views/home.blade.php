@@ -18,4 +18,7 @@
         </div>
     </div>
     {{-- content --}}
+    @isset($record)
+        
+    @endisset
 @endsection

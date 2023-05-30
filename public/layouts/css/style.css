@@ -1,3 +1,15 @@
+:root {
+    --primary-color-- : #0D6EFD;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.tx-primary-color {
+    color: var(--primary-color--);
+}
+
 .button {
     padding: 0.875rem 3rem;
     color: white;
