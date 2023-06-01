@@ -20,16 +20,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('landingpage');
-// });
-
 Route::resource('/', LandingpageController::class);
-Route::resource('/shop',ShopController::class);
 
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
+    Route::resource('/shop',ShopController::class);
+
     Route::resource('product',ProductController::class);
     Route::resource('profile',UserController::class);
     Route::resource('cart',CartController::class);

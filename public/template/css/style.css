@@ -1,8 +1,17 @@
+:root {
+  --primary-color-- : #0D6EFD;
+}
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #0c0c0c;
   background-color: #ffffff;
 }
+
+.tx-primary-color {
+  color: var(--primary-color--);
+}
+
 
 .product-description {
   top: 2%;
@@ -130,14 +139,14 @@ body {
 }
 
 .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .nav-link {
-  padding: 10px 15px;
+  padding: 0px 15px;
   color: #060606;
   text-align: center;
   text-transform: uppercase;
 }
 
 .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item.active .nav-link, .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item:hover .nav-link {
-  color: #24d278;
+  color: var(--primary-color--);
 }
 
 a,
