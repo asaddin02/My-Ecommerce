@@ -36,6 +36,19 @@
 
 <body>
 
+    @if (Session::has('success'))
+        <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
+        <script>
+            Swal.fire({
+                title: 'Success',
+                text: '{{ Session::get('message') }}',
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
     {{-- Hero Start --}}
     <div class="hero_area">
 
@@ -101,6 +114,7 @@
                             </button>
                         </div>
                     </div>
+
                     {{-- Modal Login Start --}}
                     <div class="modal fade" id="signin" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -227,24 +241,33 @@
                     <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                            <div class="modal-content border-0">
+                                <div class="modal-header border-0">
+                                    <h2 class="modal-title" id="exampleModalLabel">Login First</h2>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+                                        aria-label="Close">X</button>
                                 </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                <div class="modal-body d-flex justify-content-center align-items-center">
+                                    <div>
+                                        <span>You must login first,</span>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-outline-danger mx-2"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fa-solid fa-right-from-bracket text-black"></i>
+                                            <span class="text-black">Log out</span>
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{-- Modal Settings End --}}
+
                 </nav>
             </div>
         </header>
@@ -252,7 +275,7 @@
 
         {{-- Hero Content Start --}}
         <section>
-            @include('hero')
+            @include('layouts.hero')
         </section>
         {{-- Hero Content End --}}
 
@@ -266,11 +289,7 @@
     {{-- Main Content End --}}
 
     {{-- Footer Start --}}
-    <footer class="container-fluid footer_section ">
-        <div class="container">
-            <p>&copy; 2023 All Rights Reserved, Pasuruan E Commerce</p>
-        </div>
-    </footer>
+    @include('layouts.footer')
     {{-- Footer End --}}
 
     {{-- JQuery --}}

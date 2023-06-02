@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::resource('/', LandingpageController::class);
+Route::resource('/shop',ShopController::class);
 
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
-    Route::resource('/shop',ShopController::class);
 
     Route::resource('product',ProductController::class);
     Route::resource('profile',UserController::class);

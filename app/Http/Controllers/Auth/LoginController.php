@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
@@ -25,14 +26,17 @@ class LoginController extends Controller
 
     public function sendLoginResponse()
     {
-        Alert::success('Login Success','Welcome to My-ecommerce');
-        return redirect('home');
+        Session::flash('success');
+        Session::flash('message', 'Login Success');
+        return redirect('/');
     }
 
     public function sendFailedLoginResponse()
     {
-        Alert::error('Login Failed', 'Enter your email and password correctly')->autoClose(3000);
-        return redirect()->back();
+        Session::flash('success');
+        Session::flash('message', 'Login Success');
+        // Alert::error('Login Failed', 'Enter your email and password correctly')->autoClose(3000);
+        return redirect('/');
     }
     /**
      * Where to redirect users after login.
