@@ -14,8 +14,13 @@ class LandingpageController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
-        return view('landingpage', compact('products'));
+        //    
+    }
+
+    public function landingpage()
+    {
+        $datas = Product::paginate(10);
+        return view('landingpage', compact('datas'));    
     }
 
     /**

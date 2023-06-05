@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -20,8 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = Auth::user();
-        return view('profile.profile',compact('data'));
+        //
     }
 
     /**
@@ -78,10 +78,10 @@ class UserController extends Controller
     {
         $data = User::find($id);
         $request->validate([
-            'name' => ['required', 'max:255','string'],
-            'email' => ['required', 'max:255','email'],
+            'name' => ['required', 'max:255', 'string'],
+            'email' => ['required', 'max:255', 'email'],
             'address' => ['required', 'max:255', 'string'],
-            'phone' => ['required','numeric'],
+            'phone' => ['required', 'numeric'],
         ]);
         $data->update($request->all());
         Alert::success('Success', 'Data Changed Successfully')->autoClose(3000);
@@ -99,33 +99,26 @@ class UserController extends Controller
         //
     }
 
-    public function password(Request $request, $id)
+    public function updatePassword(Request $request, $id)
     {
-        $pass = Hash::check($request->oldpass,Auth::user()->password);
+        $pass = Hash::check($request->current_password, Auth::user()->password);
         $data = User::find($id);
-        if($request->oldpass == $pass){
-            if($request->password == $request->repassword){
-                Alert::success('Success', 'Data Changed Successfully')->autoClose(3000);
+        if ($pass == true) {
+            if ($request->password == $request->password_confirmation) {
+                Session::flash('success');
+                Session::flash('message', 'Success password has changed!');
                 $data->update([
                     'password' => Hash::make($request->password),
                 ]);
-            } else{
-                Alert::warning('Error', 'The Password You Entered is Incorrect')->autoClose(3000);
+            } else {
+                Session::flash('error');
+                Session::flash('message', 'Password confirmation is incorrect!');
             }
-        } else{
-            Alert::warning('Error', 'The Password You Entered is Incorrect')->autoClose(3000);
+        } else {
+            Session::flash('error');
+            Session::flash('message', 'Current password is incorrect!');
         }
         return redirect()->back();
-    }
-
-    public function sandi(Request $request){
-        return view('layouts.app');
-    }
-
-    public function contact()
-    {
-        $preloader = true;
-        return view('contact',compact('preloader'));
     }
 
     public function send(Request $request)
@@ -139,7 +132,7 @@ class UserController extends Controller
             'isi' => $massage
         ];
         Mail::to('prasada.arif@gmail.com')->send(new SendEmail($data));
-        Alert::success('Success','Email sent successfully!')->autoClose(3000);
+        Alert::success('Success', 'Email sent successfully!')->autoClose(3000);
         return redirect()->back();
     }
 }

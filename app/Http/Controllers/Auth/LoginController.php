@@ -33,9 +33,8 @@ class LoginController extends Controller
 
     public function sendFailedLoginResponse()
     {
-        Session::flash('success');
-        Session::flash('message', 'Login Success');
-        // Alert::error('Login Failed', 'Enter your email and password correctly')->autoClose(3000);
+        Session::flash('error');
+        Session::flash('message', 'Login Error');
         return redirect('/');
     }
     /**

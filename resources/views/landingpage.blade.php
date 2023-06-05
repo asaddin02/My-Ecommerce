@@ -1,21 +1,21 @@
-@extends('layouts.template')
+@extends('layouts.app')
 
 @section('title', 'Landing Page')
 
 @section('main')
     
-    @include('layouts.about')
+    @include('layouts.banner')
 
-    @include('layouts.trending')
+    @include('layouts.sixbox')
 
-    @include('layouts.discount')
+    @include('layouts.product')
 
-    @include('layouts.hottest')
+    @include('layouts.fashion')
 
-    @include('layouts.contact')
+    @include('layouts.news')
 
-    @include('layouts.client')
+    @include('layouts.newsletter')
 
-    @include('layouts.info')
+    @include('layouts.threebox')
 
 @endsection

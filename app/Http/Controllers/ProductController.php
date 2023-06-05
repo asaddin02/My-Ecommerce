@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
@@ -15,7 +16,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Product::all();
+        return view('product.table', [
+            'datas' => $datas
+        ]);
+    }
+
+    public function product() {
+        $datas = Product::all();
+        return view('product', [
+            'datas' => $datas
+        ]);
     }
 
     /**
@@ -47,7 +58,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('detail',compact("product"));
+        //
     }
 
     /**
@@ -82,10 +93,5 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
-    }
-
-    public function login(){
-        Alert::error('Login fisrt', 'Sign in or register to see more')->autoClose(3000);
-        return back();
     }
 }
