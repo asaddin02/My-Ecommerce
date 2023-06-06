@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -16,9 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $datas = Product::all();
+        $categories = Category::all();
+        $datas = Product::paginate(10);
         return view('product.table', [
-            'datas' => $datas
+            'datas' => $datas,
+            'categories' => $categories,
         ]);
     }
 

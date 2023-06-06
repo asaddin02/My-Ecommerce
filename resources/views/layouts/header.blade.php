@@ -291,13 +291,13 @@
                                                 <a class="nav-link" href="{{ url('/product') }}">Products List</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ url('/product/table') }}">Products</a>
+                                                <a class="nav-link" href="{{ url('product-table') }}">Products</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ url('/category/table') }}">Category</a>
+                                                <a class="nav-link" href="{{ url('category-table') }}">Category</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ url('/user/table') }}">User</a>
+                                                <a class="nav-link" href="{{ url('user-table') }}">User</a>
                                             </li>
                                         @else
                                             <li class="nav-item active">

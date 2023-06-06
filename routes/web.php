@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FashionController;
 use App\Http\Controllers\LandingpageController;
@@ -40,7 +41,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/user/edit/profile/{id}', [UserController::class, 'update'])->name('edit.profile');
     Route::put('/user/edit/password/{id}', [UserController::class, 'updatePassword'])->name('edit.password');
-    Route::resource('/product/table', ProductController::class);
+    Route::resource('product-table', ProductController::class);
+    Route::resource('category-table', CategoryController::class);
+    Route::get('category-table-delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     // Route::resource('product',ProductController::class);
     // Route::resource('profile',UserController::class);
