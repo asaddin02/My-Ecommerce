@@ -24,46 +24,30 @@ class CartController extends Controller
      */
     public function index()
     {
-        $carts = Cart::where('user_id',Auth::user()->id)->get();
-        $kosong = "There are no items purchased";
-        $kosong2 = "Go to the store to purchase items";
-        $preloader = true;
-        // $total = DB::table('carts')->where('user_id',Auth::user()->id)->sum('price_items');
-        // if(count($carts) > 0){
-        //     Config::$serverKey = 'SB-Mid-server-FgSMRXe6gp7YP34lYPxa3knw';
-        //     Config::$isProduction = false;
-        //     Config::$isSanitized = true;
-        //     Config::$is3ds = true;
-        //     $params = array(
-        //         'transaction_details' => array(
-        //             'order_id' => rand(),
-        //             'gross_amount' => $total,
-        //         ),
-        //         "enabled_payments" => [
-        //           "bank_transfer",
-        //           "shopeepay",
-        //         ],
-        //         'customer_details' => array(
-        //             'first_name' => Auth::user()->name,
-        //             'last_name' => '',
-        //             'email' => Auth::user()->email,
-        //             'phone' => Auth::user()->phone,
-        //         ),
-        //     );
-        //     $snapToken = \Midtrans\Snap::getSnapToken($params);
-        // }
-        return view('cart',compact('carts','kosong','kosong2','preloader'));
+        $datas = Cart::where('user_id', Auth::user()->id)->get();
+        $priceTotal = 0;
+        foreach ($datas as $data) {
+            $priceTotal += $data->price_items;
+        }
+        $priceTotalResult = $priceTotal;
+        return view('cart', [
+            'datas' => $datas,
+            'priceTotalResult' => $priceTotalResult
+        ]);
+    }
+
+    public function addCart()
+    {
     }
 
     public function checkout(Request $request)
     {
-       
     }
 
 
     public function updatecart()
     {
-        $total = DB::table('carts')->where('user_id',Auth::user()->id)->sum('price_items');
+        $total = DB::table('carts')->where('user_id', Auth::user()->id)->sum('price_items');
         Config::$serverKey = 'SB-Mid-server-FgSMRXe6gp7YP34lYPxa3knw';
         Config::$isProduction = false;
         Config::$isSanitized = true;
@@ -74,8 +58,8 @@ class CartController extends Controller
                 'gross_amount' => $total,
             ),
             "enabled_payments" => [
-              "bank_transfer",
-              "shopeepay",
+                "bank_transfer",
+                "shopeepay",
             ],
             'customer_details' => array(
                 'first_name' => Auth::user()->name,
@@ -110,12 +94,24 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $duplicate = Cart::where('product_id',$request->product_id)->first();
-        if($duplicate){
-            return redirect('cart')->with('error','This item is already in the cart');
+        $validate = $request->validate([
+            'user_id' => ['required'],
+            'product_id' => ['required'],
+            'qty' => ['required'],
+            'price_items' => ['required'],
+        ]);
+        $validate['price_items'] = $request->price_items * $request->qty;
+        $productId = Cart::find($request->product_id);
+        $userId = Cart::find($request->user_id);
+        if (isset($productId) == $request->product_id && isset($userId) == $request->user_id) {
+            return redirect('cart-list')->with('error', 'Error, This item is already in the cart');
         }
-        Cart::create($request->all());
-        return redirect('cart')->with('success','Successfully added item to cart');
+        $alert = Cart::create($validate);
+        if($alert) {
+            return redirect('cart-list')->with('success', 'Success, Product added to cart');
+        } else {
+            return redirect('cart-list')->with('error', 'Error, Product not added to cart');
+        }
     }
 
     /**
@@ -147,15 +143,20 @@ class CartController extends Controller
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, $id)
     {
-        $cart->update([
-            'qty' => $request->qty,
-            'price_items' => $request->price_items * $request->qty,
+        $cart = Cart::find($id);
+        $validate = $request->validate([
+            'qty' => ['required'],
+            'price_items' => ['required'],
         ]);
-        return response()->json([
-            'success' => true,
-        ]);
+        $validate['price_items'] = $request->price_items * $request->qty;
+        $alert = $cart->update($validate);
+        if($alert) {
+            return redirect()->back()->with('success', 'Success, Quantity updated');
+        } else {
+            return redirect()->back()->with('error', 'Error, Quantity not updated');
+        }
     }
 
     /**
@@ -164,11 +165,14 @@ class CartController extends Controller
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        $cart->delete();
-        return back();
+        $cart = Cart::find($id);
+        $alert = $cart->delete();
+        if($alert) {
+            return redirect()->back()->with('success', 'Success, List cart deleted');
+        } else {
+            return redirect()->back()->with('error', 'Error, List cart not deleted');
+        }
     }
-
-    
 }

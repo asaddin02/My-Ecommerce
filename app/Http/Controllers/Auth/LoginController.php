@@ -26,16 +26,12 @@ class LoginController extends Controller
 
     public function sendLoginResponse()
     {
-        Session::flash('success');
-        Session::flash('message', 'Login Success');
-        return redirect('/');
+        return redirect('/')->with('success', 'Login Success');
     }
 
     public function sendFailedLoginResponse()
     {
-        Session::flash('error');
-        Session::flash('message', 'Login Error');
-        return redirect('/');
+        return redirect('/')->with('error', 'Login Error, Email Or Password wrong!');
     }
     /**
      * Where to redirect users after login.

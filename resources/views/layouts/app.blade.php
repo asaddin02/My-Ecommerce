@@ -32,15 +32,15 @@
 
 <body class="main-layout">
 
-    @if (Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('message') }}
+    @if (Session('success'))
+        <div class="alert alert-success" role="alert" id="alert-success">
+            {{ Session('success') }}
         </div>
     @endif
 
-    @if (Session::has('error'))
-        <div class="alert alert-danger" role="alert">
-            {{ Session::get('message') }}
+    @if (Session('error'))
+        <div class="alert alert-danger" role="alert" id="alert-error">
+            {{ Session('error') }}
         </div>
     @endif
 
@@ -58,6 +58,9 @@
 
     {{-- Footer --}}
     @include('layouts.footer')
+
+    {{-- Sweet Alert --}}
+    <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
 
     {{-- JS --}}
     <script src="{{ asset('template/js/jquery.min.js') }}"></script>

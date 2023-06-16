@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -38,8 +39,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
-        return redirect()->back();
+        $create = Category::create($request->all());
+        if ($create) {
+            return redirect()->back()->with('success', 'Success, Add new category success!');
+        } else {
+            return redirect()->back()->with('error', 'Error, Add new category error!');
+        }
     }
 
     /**
@@ -74,8 +79,12 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::find($id);
-        $category->update($request->all());
-        return redirect()->back();
+        $update = $category->update($request->all());
+        if ($update) {
+            return redirect()->back()->with('success', 'Success, Update category success!');
+        } else {
+            return redirect()->back()->with('error', 'Success, Update category error!');
+        }
     }
 
     /**
@@ -87,7 +96,11 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
-        $category->delete();
-        return redirect()->back();
+        $delete = $category->delete();
+        if ($delete) {
+            return redirect()->back()->with('success', 'Success, Delete category success!');
+        } else {
+            return redirect()->back()->with('error', 'Success, Delete category error!');
+        }
     }
 }

@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name'=> 'Super Admin',
-            'email'=> 'superadmin@gmail.com',
+            'name'=> 'Admin',
+            'email'=> 'admin@gmail.com',
             'email_verified_at'=> Carbon::now(),
             'role'=> 'admin',
             'password'=> Hash::make('admin123'),

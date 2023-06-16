@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use GuzzleHttp\RetryMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $datas = User::paginate(10);
+        return view('user.table', [
+            'datas' => $datas
+        ]);
     }
 
     /**
@@ -42,7 +46,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'name' => ['required', 'max:255', 'string'],
+            'email' => ['required', 'max:255', 'email'],
+            'role' => ['required'],
+            'password' => ['required']
+        ]);
+        $hash = Hash::make($validate['password']);
+        $validate['password'] = $hash;
+        $alert = User::create($validate);
+        if($alert) {
+            return redirect()->back()->with('success', 'Success, New user was added!');
+        } else {
+            return redirect()->back()->with('error', 'Error, User was not added!');
+        }
     }
 
     /**
@@ -76,16 +93,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = User::find($id);
-        $request->validate([
+        $user = User::find($id);
+        $validate = $request->validate([
             'name' => ['required', 'max:255', 'string'],
             'email' => ['required', 'max:255', 'email'],
             'address' => ['required', 'max:255', 'string'],
             'phone' => ['required', 'numeric'],
+            'updated_at' => ['required']
         ]);
-        $data->update($request->all());
-        Alert::success('Success', 'Data Changed Successfully')->autoClose(3000);
-        return redirect()->back();
+        $updated = Carbon::now();
+        $validate['updated_at'] = $updated;
+        $alert = $user->update($validate);
+        if($alert) {
+            return redirect()->back()->with('success', 'Success, Your profile updated!');
+        } else {
+            return redirect()->back()->with('error', 'Errror, Your profile not updated!');
+        }
     }
 
     /**
@@ -102,23 +125,24 @@ class UserController extends Controller
     public function updatePassword(Request $request, $id)
     {
         $pass = Hash::check($request->current_password, Auth::user()->password);
-        $data = User::find($id);
+        $user = User::find($id);
         if ($pass == true) {
             if ($request->password == $request->password_confirmation) {
-                Session::flash('success');
-                Session::flash('message', 'Success password has changed!');
-                $data->update([
+                $status = 'success';
+                $message = 'Success, Password has changed!';
+                $user->update([
                     'password' => Hash::make($request->password),
+                    'updated_at' => Carbon::now()
                 ]);
             } else {
-                Session::flash('error');
-                Session::flash('message', 'Password confirmation is incorrect!');
+                $status = 'error';
+                $message = 'Error, Password confirmation is incorrect!';
             }
         } else {
-            Session::flash('error');
-            Session::flash('message', 'Current password is incorrect!');
+            $status = 'error';
+            $message = 'Error, Current password is incorrect!';
         }
-        return redirect()->back();
+        return redirect()->back()->with($status, $message);
     }
 
     public function send(Request $request)

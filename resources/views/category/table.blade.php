@@ -60,7 +60,8 @@
                             <i class="fa-solid fa-file-pen"></i>
                         </button>
                         <form action="{{ route('category.destroy', $data->id) }}">
-                            <input type="submit" class="table-delete-btn px-4" name="id" value="Delete">
+                            @csrf
+                            <input type="submit" class="table-delete-btn px-4" value="Delete" onclick="return confirm('Are you sure you want to delete?')">
                         </form>
                     </td>
                 </tr>

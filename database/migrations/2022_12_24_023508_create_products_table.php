@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('desc');
             $table->string('image');
+            $table->string('qty');
             $table->timestamps();
         });
     }

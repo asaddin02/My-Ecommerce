@@ -4,7 +4,7 @@
 
 @section('main')
     <button type="button" class="table-btn m-2" data-bs-toggle="modal" data-bs-target="#addProduct">
-        Add Product
+        Add
         <i class="fa-solid fa-file-circle-plus"></i>
     </button>
     <div class="modal fade" id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -15,7 +15,7 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product
                         </h1>
                     </div>
-                    <form method="POST" action="{{ route('test.store') }}">
+                    <form method="POST" action="{{ route('product-table.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div class="row mb-3">
@@ -34,7 +34,7 @@
                                     <p class="mb-1" style="font-size: 14px;">Name</p>
                                     <input id="nameAdd" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name" required
-                                        placeholder="Product Name" autocomplete="name" autofocus>
+                                        placeholder="Name" autocomplete="name" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -47,7 +47,7 @@
                                     <p class="mb-1" style="font-size: 14px;">Price</p>
                                     <input id="priceAdd" type="number"
                                         class="form-control @error('name') is-invalid @enderror" name="price" required
-                                        placeholder="Product Name" autocomplete="price" autofocus>
+                                        placeholder="Price" autocomplete="price" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -60,12 +60,7 @@
                                     <p class="mb-1" style="font-size: 14px;">Description</p>
                                     <input id="descAdd" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="desc" required
-                                        placeholder="Product Name" autocomplete="desc" autofocus>
-                                    <input id="Description" type="hidden" name="deskripsi">
-                                    <trix-editor input="Description"
-                                        class=" @error('deskripsi') is-invalid @enderror form-input"
-                                        placeholder="Input Job Description" required autocomplete="new-deskripsi">
-                                    </trix-editor>  
+                                        placeholder="Description" autocomplete="desc" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -120,12 +115,16 @@
                             <i class="fa-solid fa-caret-down"></i>
                         </button>
                     </td>
-                    <td>
+                    <td class="d-flex">
                         <button type="button" class="table-btn px-4" data-bs-toggle="modal"
                             data-bs-target="#editProduct{{ $data->id }}">
                             Edit
                             <i class="fa-solid fa-file-pen"></i>
                         </button>
+                        <form action="{{ route('product.destroy', $data->id) }}">
+                            @csrf
+                            <input type="submit" class="table-delete-btn px-4" value="Delete" onclick="return confirm('Are you sure you want to delete?')">
+                        </form>
                     </td>
                 </tr>
                 <div class="modal fade" id="detailProduct{{ $data->id }}" tabindex="-1"
@@ -138,7 +137,7 @@
                                 <p>Description :</p>
                                 <p class="my-2">{{ $data->desc }}</p>
                                 <p>Image :</p>
-                                <p class="my-2">{{ $data->image }}</p>
+                                <img src="{{ asset('storage/'.$data->image) }}" alt="Product Image">
                             </div>
                         </div>
                     </div>
@@ -152,7 +151,7 @@
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product {{ $data->name }}
                                     </h1>
                                 </div>
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('product-table.update', $data->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="d-flex flex-column justify-content-center align-items-center">
@@ -235,4 +234,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="px-5 py-2">
+        @isset($datas)
+        {{ $datas->links('vendor.pagination.bootstrap-5') }}
+        @endisset
+    </div>
 @endsection

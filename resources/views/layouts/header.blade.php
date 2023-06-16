@@ -6,7 +6,7 @@
                     <div class="col-md-4">
                         <ul class="conta_icon ">
                             <li>
-                                <a href="#">
+                                <a href="{{ url('/') }}">
                                     <i class="fa-brands fa-whatsapp text-black"></i>
                                     <span>+62 88 - 88 - 88</span>
                                 </a>
@@ -15,12 +15,12 @@
                     </div>
                     <div class="col-md-4">
                         <ul class="social_icon">
-                            <li> <a href="#"><i class="fa-brands fa-facebook-f text-white"></i>
+                            <li> <a href="{{ url('/') }}"><i class="fa-brands fa-facebook-f text-white"></i>
                                 </a>
                             </li>
-                            <li> <a href="#"><i class="fa-brands fa-twitter text-white"></i></a></li>
-                            <li> <a href="#"><i class="fa-brands fa-linkedin-in text-white"></i></a></li>
-                            <li> <a href="#"><i class="fa-brands fa-instagram text-white"></i>
+                            <li> <a href="{{ url('/') }}"><i class="fa-brands fa-twitter text-white"></i></a></li>
+                            <li> <a href="{{ url('/') }}"><i class="fa-brands fa-linkedin-in text-white"></i></a></li>
+                            <li> <a href="{{ url('/') }}"><i class="fa-brands fa-instagram text-white"></i>
                                 </a>
                             </li>
                         </ul>
@@ -53,13 +53,13 @@
                             @guest
                                 <li>
                                     <i class="fa-solid fa-envelope"></i>
-                                    <span>ecommerce@gmail.com</span>
+                                    <span>Our email : ecommerce@gmail.com</span>
                                 </li>
                             @else
                                 <li>
                                     <button type="button" class="link" data-bs-toggle="modal" data-bs-target="#settings">
                                         @if (isset(Auth::user()->photo))
-                                            <img src="" alt="#">
+                                            <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="#">
                                         @else
                                             <img src="{{ asset('template/default/image/profile/profile-user-black.png') }}"
                                                 alt="#" width="30">
@@ -157,6 +157,7 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
+                                                        <input type="hidden" name="updated_at" value="updated">
                                                         <div class="row mb-5">
                                                             <button type="submit" class="order px-4 d-none"
                                                                 id="saveEdit">Save</button>
@@ -175,7 +176,7 @@
                                                     <div
                                                         class="d-flex flex-column justify-content-center align-items-center">
                                                         <div class="row mb-3">
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 position-relative">
                                                                 <p class="mb-1" style="font-size: 14px;">Current
                                                                     Password</p>
                                                                 <input id="currentPasswordEdit" type="password"
@@ -184,6 +185,10 @@
                                                                     placeholder="Current Password"
                                                                     autocomplete="new-password"
                                                                     value="{{ old('password') }}" readonly>
+                                                                <i class="fa-solid fa-eye position-absolute pass-eye available show"
+                                                                    id="updatePassEye"></i>
+                                                                <i class="fa-solid fa-eye-slash position-absolute pass-eye-slash show"
+                                                                    id="updatePassEyeSlash"></i>
                                                                 @error('password')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
@@ -199,6 +204,10 @@
                                                                     name="password" required placeholder="New Password"
                                                                     autocomplete="new-password"
                                                                     value="{{ old('password') }}" readonly>
+                                                                <i class="fa-solid fa-eye position-absolute pass-eye available show"
+                                                                    id="updateNewPassEye"></i>
+                                                                <i class="fa-solid fa-eye-slash position-absolute pass-eye-slash show"
+                                                                    id="updateNewPassEyeSlash"></i>
                                                                 @error('password')
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $message }}</strong>
@@ -213,6 +222,10 @@
                                                                     class="form-control" name="password_confirmation"
                                                                     required placeholder="Confirm password"
                                                                     autocomplete="new-password" readonly>
+                                                                <i class="fa-solid fa-eye position-absolute pass-eye available show"
+                                                                    id="updateNewPassConfirmEye"></i>
+                                                                <i class="fa-solid fa-eye-slash position-absolute pass-eye-slash show"
+                                                                    id="updateNewPassConfirmEyeSlash"></i>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-5">
@@ -230,7 +243,7 @@
                     </div>
                     <div class="col-md-4">
                         <a class="logo" href="{{ url('/') }}"><img
-                                src="{{ asset('template/images/logo.png') }}" alt="#" /></a>
+                                src="{{ asset('') }}" alt="Brand Logo" /></a>
                     </div>
                     <div class="col-md-4">
                         <ul class="right_icon d_none1">
@@ -240,7 +253,7 @@
                                     Login
                                 </button>
                             @else
-                                <li><a href="{{ url('/cart') }}"><i class="fa-solid fa-cart-shopping fa-2x mx-2"></i>
+                                <li><a href="{{ url('cart-list') }}"><i class="fa-solid fa-cart-shopping fa-2x mx-2"></i>
                                 </li>
                                 <a href="" class="order"
                                     onclick="event.preventDefault();
@@ -287,6 +300,9 @@
                                         </li>
                                     @else
                                         @if (Auth::user()->role == 'admin')
+                                            <li class="nav-item active">
+                                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{{ url('/product') }}">Products List</a>
                                             </li>
@@ -326,10 +342,35 @@
                     </div>
                     <div class="col-md-4">
                         <div class="search">
-                            <form action="">
-                                <input class="form_sea" type="text" placeholder="Search" name="search">
-                                <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
-                            </form>
+                            @if (Request::is('product'))
+                                <form action="{{ url('/product') }}" method="GET">
+                                    <input class="form_sea" type="text" placeholder="Search Product Name"
+                                        name="search">
+                                    <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
+                                </form>
+                            @elseif(Request::is('product-table'))
+                                <form action="{{ route('product-table.search') }}" method="GET">
+                                    @csrf
+                                    <input class="form_sea" type="text" placeholder="Search Product Name"
+                                        name="search">
+                                    <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
+                                </form>
+                            @elseif(Request::is('category-table'))
+                                <form action="" method="GET">
+                                    <input class="form_sea" type="text" placeholder="Search Category Name"
+                                        name="search">
+                                    <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
+                                </form>
+                            @elseif(Request::is('user-table'))
+                                <form action="" method="GET">
+                                    <input class="form_sea" type="text" placeholder="Search Category Name"
+                                        name="search">
+                                    <button type="submit" class="seach_icon"><i class="fa fa-search"></i></button>
+                                </form>
+                            @else
+                                <span class="text-white fw-bold">Scroll Down<i
+                                        class="fa-solid fa-scroll mx-2"></i></span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -359,10 +400,11 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-12">
+                            <div class="col-md-12 position-relative">
                                 <p class="mb-1" style="font-size: 14px;">Password</p>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    name="password" required placeholder="Password" autocomplete="current-password">
+                                    name="password" required placeholder="Password" autocomplete="current-password"
+                                    id="loginForm">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

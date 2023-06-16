@@ -10,14 +10,18 @@
         <div class="row">
             <div class="product_main">
                 @foreach ($datas as $data)
-                    <div class="project_box ">
-                        <div class="dark_white_bg"><img src="{{ $data->image }}" alt="#" /></div>
-                        <h3>{{ $data->name }} ${{ $data->price }}</h3>
+                    <div class="project_box mb-5">
+                        <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}" alt="#"
+                                width="110" /></div>
+                        <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
+                            Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                     </div>
                 @endforeach
-                <div class="col-md-12">
-                    <a class="read_more" href="#">See More</a>
-                </div>
+                @if (!Request::is('product'))
+                    <div class="col-md-12">
+                        <a class="read_more" href="{{ url('/product') }}">See More</a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

@@ -23,6 +23,7 @@ class ProductFactory extends Factory
             'price' => fake()->numberBetween(100000,1000000),
             'desc' => fake()->paragraph($nbSentences = 3,$variableNbSentences = true),
             'image' => $data,
+            'qty' => 50,
         ];
     }
 }

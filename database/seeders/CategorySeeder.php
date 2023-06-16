@@ -17,12 +17,12 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            'name'=> 'Men',
+            'name'=> 'Man',
             'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now(),
         ]);
         DB::table('categories')->insert([
-            'name'=> 'Lady',
+            'name'=> 'Woman',
             'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now(),
         ]);
