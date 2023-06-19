@@ -22,7 +22,7 @@ class ProductFactory extends Factory
         $limitedDesc = Str::words($desc, 255, '');
         return  [
             'name' => fake()->FirstNameMale(),
-            'category_id' => fake()->numberBetween(1,3),
+            'category_id' => fake()->numberBetween(1,15),
             'price' => fake()->numberBetween(100000,1000000),
             'desc' => $limitedDesc,
             'image' => $data,

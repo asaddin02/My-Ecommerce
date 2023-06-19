@@ -1,3 +1,3 @@
 <div class="fashion">
-    <img src="images/fashion.jpg" alt="#" />
+    <img src="{{ asset('template/images/fashion.jpg') }}" alt="#" />
 </div>

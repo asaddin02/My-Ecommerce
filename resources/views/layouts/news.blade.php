@@ -12,13 +12,13 @@
                 <div class="row d_flex">
                     <div class="col-md-5">
                         <div class="news_img">
-                            <figure><img src="images/news_img1.jpg"></figure>
+                            <figure><img src="{{ asset('template/images/news_img1.jpg') }}"></figure>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="news_text">
                             <h3>Specimen book. It has survived not only five</h3>
-                            <span>7 July 2019</span>
+                            <span>7 July 2023</span>
                             <div class="date_like">
                                 <span>Like </span><span class="pad_le">Comment</span>
                             </div>
@@ -34,13 +34,13 @@
                 <div class="row d_flex">
                     <div class="col-md-5">
                         <div class="news_img">
-                            <figure><img src="images/news_img2.jpg"></figure>
+                            <figure><img src="{{ asset('template/images/news_img2.jpg') }}"></figure>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="news_text">
                             <h3>Specimen book. It has survived not only five</h3>
-                            <span>7 July 2019</span>
+                            <span>7 July 2023</span>
                             <div class="date_like">
                                 <span>Like </span><span class="pad_le">Comment</span>
                             </div>
@@ -56,13 +56,13 @@
                 <div class="row d_flex">
                     <div class="col-md-5">
                         <div class="news_img">
-                            <figure><img src="images/news_img3.jpg"></figure>
+                            <figure><img src="{{ asset('template/images/news_img3.jpg') }}"></figure>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="news_text">
                             <h3>Specimen book. It has survived not only five</h3>
-                            <span>7 July 2019</span>
+                            <span>7 July 2023</span>
                             <div class="date_like">
                                 <span>Like </span><span class="pad_le">Comment</span>
                             </div>

@@ -17,17 +17,92 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            'name'=> 'Man',
+            'name'=> 'Shoes',
+            'for'=> 'Man',
             'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now(),
         ]);
         DB::table('categories')->insert([
-            'name'=> 'Woman',
+            'name'=> 'Shoes',
+            'for'=> 'Woman',
             'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now(),
         ]);
         DB::table('categories')->insert([
-            'name'=> 'Kids',
+            'name'=> 'Shoes',
+            'for'=> 'Kids',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Pants',
+            'for'=> 'Man',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Pants',
+            'for'=> 'Woman',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Pants',
+            'for'=> 'Kids',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Tshirt',
+            'for'=> 'Man',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Tshirt',
+            'for'=> 'Woman',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Tshirt',
+            'for'=> 'Kids',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Jacket',
+            'for'=> 'Man',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Jacket',
+            'for'=> 'Woman',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Jacket',
+            'for'=> 'Kids',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Hat',
+            'for'=> 'Man',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Hat',
+            'for'=> 'Woman',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
+        ]);
+        DB::table('categories')->insert([
+            'name'=> 'Hat',
+            'for'=> 'Kids',
             'created_at'=> Carbon::now(),
             'updated_at'=> Carbon::now(),
         ]);
