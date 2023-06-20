@@ -101,14 +101,23 @@ class CartController extends Controller
             'qty' => ['required'],
         ]);
         $validate['price_items'] = $request->price_items * $request->qty;
-        $productId = Cart::find($request->product_id);
-        $userId = Cart::find($request->user_id);
-        if (isset($productId) == $request->product_id && isset($userId) == $request->user_id) {
-            return redirect('cart-list')->with('error', 'Error, This item is already in the cart');
+        // $productId = Cart::find($request->product_id);
+        // $userId = Cart::find($request->user_id);
+        $cart = Cart::where('user_id', $request->user_id)->where('product_id', $request->product_id)->first();
+        if ($request->user_id == $cart->user_id && $request->product_id == $cart->product_id) {
+            $cart->update([
+                'qty' => $request->qty + $cart->qty
+            ]);
+            dd($cart);
+        } else {
+            $alert = Cart::create($validate);
         }
-        $alert = Cart::create($validate);
-        if($alert) {
-            return response()->json(['success' => true, 'message' => 'Product added to cart']);
+        if ($alert) {
+            $response = [
+                'success' => session('success'),
+                'error' => session('error')
+            ];
+            return response()->json($response);
         } else {
             return response()->with('error', 'Error, Product not added to cart');
         }
@@ -152,7 +161,7 @@ class CartController extends Controller
         ]);
         $validate['price_items'] = $request->price_items * $request->qty;
         $alert = $cart->update($validate);
-        if($alert) {
+        if ($alert) {
             return redirect()->back()->with('success', 'Success, Quantity updated');
         } else {
             return redirect()->back()->with('error', 'Error, Quantity not updated');
@@ -169,7 +178,7 @@ class CartController extends Controller
     {
         $cart = Cart::find($id);
         $alert = $cart->delete();
-        if($alert) {
+        if ($alert) {
             return redirect()->back()->with('success', 'Success, List cart deleted');
         } else {
             return redirect()->back()->with('error', 'Error, List cart not deleted');

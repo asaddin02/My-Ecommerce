@@ -21,9 +21,8 @@ $(document).ready(function () {
                 $("#cart-logo").removeClass("fa-cart-shopping");
                 $("#cart-logo").addClass("fa-pen");
                 if (response.success) {
-                    alert('berhasil');
-                } else {
-                    console.log("Error:", response.error);
+                    var successMessage = response.success;
+                    $("#alert-success").html(successMessage).show();
                 }
             },
             error: function (err) {

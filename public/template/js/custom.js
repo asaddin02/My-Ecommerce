@@ -166,10 +166,5 @@ updateNewPassConfirmEye.addEventListener('click', function () {
 	newPasswordConfirmEdit.setAttribute('type', 'password');
 })
 
-setTimeout(function () {
-	document.getElementById('alert-success').style.display = 'none'
-}, 4000)
 
-setTimeout(function () {
-	document.getElementById('alert-error').style.display = 'none'
-}, 4000)
+

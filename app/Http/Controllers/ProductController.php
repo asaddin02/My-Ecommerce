@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -29,47 +30,47 @@ class ProductController extends Controller
 
     public function product(Request $request)
     {
-        if(isset($request['search'])) {
-            if($request['search'] == null) {
+        if (isset($request['search'])) {
+            if ($request['search'] == null) {
                 $datas = Product::all();
             } else {
                 $input = $request['search'];
-                $datas = Product::where('name', 'LIKE', '%'.$input.'%')->paginate(10);
+                $datas = Product::where('name', 'LIKE', '%' . $input . '%')->paginate(10);
             }
-        } elseif(isset($request['filter'])) {
-            if($request['filter'] == null) {
+        } elseif (isset($request['filter'])) {
+            if ($request['filter'] == null) {
                 $datas = Product::all();
             } else {
                 $filter = $request['filter'];
                 $datas = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->where('categories.name', 'LIKE', '%'.$filter.'%')
-                ->paginate(10);
+                    ->where('categories.name', 'LIKE', '%' . $filter . '%')
+                    ->paginate(10);
             }
         } else {
             $datas = Product::all();
-            $hats = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Hat')->get();
+            $test = [13, 14, 15];
+            $hats = Product::whereIn('category_id', $test)->get();
             $jackets = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Jacket')->get();
+                ->where('categories.name', '=', 'Jacket')->get();
             $tshirts = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Tshirt')->get();
+                ->where('categories.name', '=', 'Tshirt')->get();
             $pants = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Pants')->get();
+                ->where('categories.name', '=', 'Pants')->get();
             $shoes = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Shoes')->get();
+                ->where('categories.name', '=', 'Shoes')->get();
+            return view('product', [
+                'datas' => $datas,
+                'hats' => $hats,
+                'jackets' => $jackets,
+                'tshirts' => $tshirts,
+                'pants' => $pants,
+                'shoes' => $shoes,
+            ]);
         }
-
-        return view('product', [
-            'datas' => $datas,
-            'hats' => $hats,
-            'jackets' => $jackets,
-            'tshirts' => $tshirts,
-            'pants' => $pants,
-            'shoes' => $shoes,
-        ]);
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
         $product = Product::find($id);
         $datas = Product::where('category_id', '=', $product['category_id'])->get();
         return view('product-detail', [
@@ -152,7 +153,7 @@ class ProductController extends Controller
             'desc' => ['required', 'max:255', 'string'],
             'image' => ['required', 'max:10000', 'mimes:jpg,png,svg'],
         ]);
-        if(Storage::fileExists($product['image'])) {
+        if (Storage::fileExists($product['image'])) {
             Storage::delete($product['image']);
             $image = $request->file('image')->store('product/image');
         } else {
@@ -160,7 +161,7 @@ class ProductController extends Controller
         }
         $validate['image'] = $image;
         $alert = $product->update($validate);
-        if($alert) {
+        if ($alert) {
             return redirect()->back()->with('success', 'Success, Product updated!');
         } else {
             return redirect()->back()->with('error', 'Error, Product not updated!');
@@ -176,13 +177,13 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        if(Storage::fileExists($product['image'])) {
+        if (Storage::fileExists($product['image'])) {
             Storage::delete($product['image']);
             $alert = $product->delete();
         } else {
             $alert = $product->delete();
         }
-        if($alert) {
+        if ($alert) {
             return redirect()->back()->with('success', 'Success, Product deleted!');
         } else {
             return redirect()->back()->with('error', 'Error, Product not deleted!');
