@@ -3,7 +3,7 @@
 @section('title', 'Contact')
 
 @section('main')
-    <div id="contact" class="contact">
+    <div id="contact" class="contact mb-5">
         <div class="con_bg">
             <div class="container">
                 <div class="row">
@@ -11,19 +11,19 @@
                         <form id="request" class="main_form">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="contactus" placeholder="Name" type="type" name="Name">
+                                    <input class="contactus" required placeholder="Name" type="type" name="Name">
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
+                                    <input class="contactus" required placeholder="Phone Number" type="type" name="Phone Number">
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="contactus" placeholder="Email" type="type" name="Email">
+                                    <input class="contactus" required placeholder="Email" type="type" name="Email">
                                 </div>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="contactus" placeholder="Address" type="type" name="Address">
+                                    <input class="contactus" required placeholder="Address" type="type" name="Address">
                                 </div>
                                 <div class="col-md-12">
-                                    <input class="contactusmess" placeholder="Message" type="type" Message="Name">
+                                    <input class="contactusmess" required placeholder="Message" type="type" Message="Name">
                                 </div>
                                 <div class="col-md-12">
                                     <button class="send_btn">Send</button>

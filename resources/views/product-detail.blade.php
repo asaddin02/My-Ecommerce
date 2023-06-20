@@ -3,7 +3,6 @@
 @section('title', 'Product Detail')
 
 @section('main')
-    <a href="{{ url('/product') }}" class="btn btn-primary m-5">Back</a>
     <div class="container d-flex justify-content-center align-items-center my-lg-5">
         <div class="card d-flex flex-column justify-content-center align-items-center border-0" style="width: 18rem;">
             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="Product Image">

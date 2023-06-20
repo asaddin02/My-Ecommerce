@@ -1,4 +1,4 @@
-<div class="news">
+<div class="news mb-5">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -17,10 +17,10 @@
                     </div>
                     <div class="col-md-7">
                         <div class="news_text">
-                            <h3>Specimen book. It has survived not only five</h3>
+                            <h3><a href="{{ url('/news') }}">Specimen book. It has survived not only five</a></h3>
                             <span>7 July 2023</span>
                             <div class="date_like">
-                                <span>Like </span><span class="pad_le">Comment</span>
+                                <a href=""><span>Like </span></a><a href=""><span class="pad_le">Comment</span></a>
                             </div>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -39,10 +39,10 @@
                     </div>
                     <div class="col-md-7">
                         <div class="news_text">
-                            <h3>Specimen book. It has survived not only five</h3>
+                            <h3><a href="{{ url('/news') }}">Specimen book. It has survived not only five</a></h3>
                             <span>7 July 2023</span>
                             <div class="date_like">
-                                <span>Like </span><span class="pad_le">Comment</span>
+                                <a href=""><span>Like </span></a><a href=""><span class="pad_le">Comment</span></a>
                             </div>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                 Ipsum has been the industry's standard dummy text ever since the 1500s, when an
@@ -61,10 +61,10 @@
                     </div>
                     <div class="col-md-7">
                         <div class="news_text">
-                            <h3>Specimen book. It has survived not only five</h3>
+                            <h3><a href="{{ url('/news') }}">Specimen book. It has survived not only five</a></h3>
                             <span>7 July 2023</span>
                             <div class="date_like">
-                                <span>Like </span><span class="pad_le">Comment</span>
+                                <a href=""><span>Like </span></a><a href=""><span class="pad_le">Comment</span></a>
                             </div>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                 Ipsum has been the industry's standard dummy text ever since the 1500s, when an

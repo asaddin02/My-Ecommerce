@@ -2,7 +2,7 @@
 
 @section('title', 'Fashion')
 
-@section('name')
+@section('main')
     
     @include('layouts.fashion')
 
