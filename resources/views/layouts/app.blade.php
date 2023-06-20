@@ -43,6 +43,10 @@
         </div>
     @endif
 
+    <div class="alert alert-success d-none" id="aler">
+        Success ditambahkan ke keranjang
+    </div>
+
     {{-- Loader Start --}}
     <div class="loader_bg">
         <div class="loader"><img src="{{ asset('template/images/loading.gif') }}" alt="#" /></div>
@@ -72,7 +76,7 @@
     <script>
         setTimeout(function() {
             $('#alert').hide();
-        }, 4000);
+        }, 4000)
     </script>
 </body>
 
