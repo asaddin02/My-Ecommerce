@@ -97,8 +97,8 @@ class CartController extends Controller
         $validate = $request->validate([
             'user_id' => ['required'],
             'product_id' => ['required'],
-            'qty' => ['required'],
             'price_items' => ['required'],
+            'qty' => ['required'],
         ]);
         $validate['price_items'] = $request->price_items * $request->qty;
         $productId = Cart::find($request->product_id);
@@ -108,9 +108,9 @@ class CartController extends Controller
         }
         $alert = Cart::create($validate);
         if($alert) {
-            return redirect('cart-list')->with('success', 'Success, Product added to cart');
+            return response()->json(['success' => true, 'message' => 'Product added to cart']);
         } else {
-            return redirect('cart-list')->with('error', 'Error, Product not added to cart');
+            return response()->with('error', 'Error, Product not added to cart');
         }
     }
 

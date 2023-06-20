@@ -59,7 +59,8 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <p class="text-end text-black">Total : Rp.{{ number_format($priceTotalResult, '0', '.', '.') }},-</p>
+                        <p class="text-end text-black">Total : Rp.{{ number_format($priceTotalResult, '0', '.', '.') }},-
+                        </p>
                     </td>
                     <td></td>
                 </tr>

@@ -253,7 +253,7 @@
                                     Login
                                 </button>
                             @else
-                                <li><a href="{{ url('cart-list') }}"><i class="fa-solid fa-cart-shopping fa-2x mx-2"></i>
+                                <li><a href="{{ url('cart-list') }}"><i id="cart-logo" class="fa-solid fa-cart-shopping fa-2x mx-2"></i>
                                 </li>
                                 <a href="" class="order"
                                     onclick="event.preventDefault();
