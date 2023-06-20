@@ -36,6 +36,7 @@ class ProductController extends Controller
                 $input = $request['search'];
                 $datas = Product::where('name', 'LIKE', '%'.$input.'%')->paginate(10);
             }
+            return view('/product', ['datas' => $datas]);
         } elseif(isset($request['filter'])) {
             if($request['filter'] == null) {
                 $datas = Product::all();
@@ -45,8 +46,8 @@ class ProductController extends Controller
                 ->where('categories.name', 'LIKE', '%'.$filter.'%')
                 ->paginate(10);
             }
+            return view('/product', ['datas' => $datas]);
         } else {
-            $datas = Product::all();
             $hats = Product::join('categories', 'products.category_id', '=', 'categories.id')
             ->where('categories.name', '=', 'Hat')->get();
             $jackets = Product::join('categories', 'products.category_id', '=', 'categories.id')
@@ -57,16 +58,15 @@ class ProductController extends Controller
             ->where('categories.name', '=', 'Pants')->get();
             $shoes = Product::join('categories', 'products.category_id', '=', 'categories.id')
             ->where('categories.name', '=', 'Shoes')->get();
+            return view('product', [
+                'hats' => $hats,
+                'jackets' => $jackets,
+                'tshirts' => $tshirts,
+                'pants' => $pants,
+                'shoes' => $shoes,
+            ]);
         }
 
-        return view('product', [
-            'datas' => $datas,
-            'hats' => $hats,
-            'jackets' => $jackets,
-            'tshirts' => $tshirts,
-            'pants' => $pants,
-            'shoes' => $shoes,
-        ]);
     }
 
     public function detail($id) {

@@ -1,5 +1,6 @@
 // add product to cart
-var csrfToken = $('meta[name="csrf-token"]').attr("content");
+// var csrfToken = $('meta[name="csrf-token"]').attr("content");
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 $(document).ready(function () {
     $("#addcart").on("click", function (e) {
         e.preventDefault();
@@ -8,7 +9,7 @@ $(document).ready(function () {
         var quantity = $('[name="qty"]').val();
         var price = $('[name="price_items"]').val();
         $.ajax({
-            url: "http://localhost:8000/cart-list",
+            url: "http://127.0.0.1:8000/cart-list",
             type: "post",
             data: {
                 product_id: productId,

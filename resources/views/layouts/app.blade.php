@@ -34,16 +34,15 @@
 <body class="main-layout">
 
     @if (Session('success'))
-        <div class="alert alert-success" role="alert" id="alert-success">
+        <div class="alert alert-success" role="alert" id="alert">
             {{ Session('success') }}
         </div>
-    @endif
-
-    @if (Session('error'))
-        <div class="alert alert-danger" role="alert" id="alert-error">
+    @else
+        <div class="alert alert-danger" role="alert" id="alert">
             {{ Session('error') }}
         </div>
     @endif
+
     <div class="alert alert-success d-none" id="aler">
         Success ditambahkan ke keranjang
     </div>
@@ -74,6 +73,11 @@
     <script src="{{ asset('template/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
     <script src="{{ asset('template/js/custom.js') }}"></script>
     <script src="{{ asset('js/ajaxcompilation.js') }}"></script>
+    <script>
+        setTimeout(function() {
+            $('#alert').hide();
+        }, 4000)
+    </script>
 </body>
 
 </html>
