@@ -3,8 +3,10 @@
         <div class="row">
             <div class="col-md-2 col-sm-4 pa_left">
                 <div class="six_probpx yellow_bg">
-                    <i><img src="{{ asset('template/images/shoes.png') }}" alt="#" /></i>
-                    <span>Shoes</span>
+                    <a href="{{ url('?filter=shoes') }}">
+                        <i><img src="{{ asset('template/images/shoes.png') }}" alt="#" /></i>
+                        <span>Shoes</span>
+                    </a>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 pa_left">
