@@ -14,7 +14,7 @@
                         <div class="project_box mb-5">
                             <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}" alt="#"
                                     width="110" /></div>
-                            <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
+                            <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
                                 Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                         </div>
                     @endforeach

@@ -37,7 +37,7 @@
         <div class="alert alert-success" role="alert" id="alert">
             {{ Session('success') }}
         </div>
-    @else
+    @elseif (Session('error'))
         <div class="alert alert-danger" role="alert" id="alert">
             {{ Session('error') }}
         </div>

@@ -38,8 +38,8 @@ class ProductController extends Controller
                 $datas = Product::where('name', 'LIKE', '%' . $input . '%')->paginate(10);
             }
             return view('/product', ['datas' => $datas]);
-        } elseif(isset($request['filter'])) {
-            if($request['filter'] == null) {
+        } elseif (isset($request['filter'])) {
+            if ($request['filter'] == null) {
                 $datas = Product::all();
             } else {
                 $filter = $request['filter'];
@@ -50,7 +50,7 @@ class ProductController extends Controller
             return view('/product', ['datas' => $datas]);
         } else {
             $hats = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Hat')->get();
+                ->where('categories.name', '=', 'Hat')->get();
             $jackets = Product::join('categories', 'products.category_id', '=', 'categories.id')
                 ->where('categories.name', '=', 'Jacket')->get();
             $tshirts = Product::join('categories', 'products.category_id', '=', 'categories.id')
@@ -58,7 +58,7 @@ class ProductController extends Controller
             $pants = Product::join('categories', 'products.category_id', '=', 'categories.id')
                 ->where('categories.name', '=', 'Pants')->get();
             $shoes = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Shoes')->get();
+                ->where('categories.name', '=', 'Shoes')->get();
             return view('product', [
                 'hats' => $hats,
                 'jackets' => $jackets,
@@ -98,12 +98,53 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'category_id' => ['required'],
-            'name' => ['required', 'max:255', 'string'],
+            'product_name' => ['required', 'max:255', 'string'],
             'price' => ['required'],
             'desc' => ['required', 'max:255', 'string'],
             'image' => ['required', 'max:10000', 'mimes:jpg,png,svg'],
+            'qty' => ['required'],
         ]);
+        if ($request->category_name == 'Hat') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 13;
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 14;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 15;
+            }
+        } elseif ($request->category_name == 'Jacket') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 10;
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 11;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 12;
+            }
+        } elseif ($request->category_name == 'Tshirt') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 7;
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 8;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 9;
+            }
+        } elseif ($request->category_name == 'Pants') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 4;   
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 5;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 6;
+            }
+        } elseif ($request->category_name == 'Shoes') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 1;   
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 2;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 3;
+            }
+        }
         $image = $request->file('image')->store('product/image');
         $validate['image'] = $image;
         $alert = Product::create($validate);
@@ -147,12 +188,53 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $validate = $request->validate([
-            'category_id' => ['required'],
-            'name' => ['required', 'max:255', 'string'],
+            'product_name' => ['required', 'max:255', 'string'],
             'price' => ['required'],
             'desc' => ['required', 'max:255', 'string'],
             'image' => ['required', 'max:10000', 'mimes:jpg,png,svg'],
+            'qty' => ['required'],
         ]);
+        if ($request->category_name == 'Hat') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 13;
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 14;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 15;
+            }
+        } elseif ($request->category_name == 'Jacket') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 10;
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 11;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 12;
+            }
+        } elseif ($request->category_name == 'Tshirt') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 7;
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 8;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 9;
+            }
+        } elseif ($request->category_name == 'Pants') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 4;   
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 5;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 6;
+            }
+        } elseif ($request->category_name == 'Shoes') {
+            if ($request->category_for == 'Man') {
+                $validate['category_id'] = 1;   
+            } elseif ($request->category_for == 'Woman') {
+                $validate['category_id'] = 2;
+            } elseif ($request->category_for == 'Kids') {
+                $validate['category_id'] = 3;
+            }
+        }
         if (Storage::fileExists($product['image'])) {
             Storage::delete($product['image']);
             $image = $request->file('image')->store('product/image');

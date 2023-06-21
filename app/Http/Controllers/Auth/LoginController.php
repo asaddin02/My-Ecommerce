@@ -26,12 +26,12 @@ class LoginController extends Controller
 
     public function sendLoginResponse()
     {
-        return redirect('/')->with('success', 'Login Success');
+        return redirect()->back()->with('success', 'Login Success');
     }
 
     public function sendFailedLoginResponse()
     {
-        return redirect('/')->with('error', 'Login Error, Email Or Password wrong!');
+        return redirect()->back()->with('error', 'Login Error, Email Or Password wrong!');
     }
     /**
      * Where to redirect users after login.

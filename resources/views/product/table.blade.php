@@ -19,13 +19,22 @@
                         @csrf
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             <div class="row mb-3">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <p class="mb-1" style="font-size: 14px;">Category</p>
-                                    <select class="form-control" name="category_id" id="categoryProductAdd">
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->name }}</option>
-                                        @endforeach
+                                    <select class="form-control" name="category_name" id="categoryProductAdd" required>
+                                        <option value="Hat">Hat / Top</option>
+                                        <option value="Jacket">Jacket</option>
+                                        <option value="Tshirt">T Shirt</option>
+                                        <option value="Pants">Pants</option>
+                                        <option value="Shoes">Shoes</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1" style="font-size: 14px;">Category</p>
+                                    <select class="form-control" name="category_for" id="categoryProductAdd" required>
+                                        <option value="Man">Man</option>
+                                        <option value="Woman">Woman</option>
+                                        <option value="Kids">Kids</option>
                                     </select>
                                 </div>
                             </div>
@@ -33,7 +42,7 @@
                                 <div class="col-md-12">
                                     <p class="mb-1" style="font-size: 14px;">Name</p>
                                     <input id="nameAdd" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name" required
+                                        class="form-control @error('name') is-invalid @enderror" name="product_name" required
                                         placeholder="Name" autocomplete="name" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -81,6 +90,19 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <p class="mb-1" style="font-size: 14px;">Quantity</p>
+                                    <input id="qtyAdd" type="number"
+                                        class="form-control @error('name') is-invalid @enderror" name="qty" required
+                                        placeholder="Quantity" autocomplete="qty" autofocus>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row mb-5">
                                 <button type="submit" class="order px-4" id="saveEditProduct">Save</button>
                             </div>
@@ -95,6 +117,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Category</th>
+                <th scope="col">For</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Detail</th>
@@ -106,8 +129,9 @@
                 <tr>
                     <th scope="row">{{ $index + $datas->firstItem() }}</th>
                     <td>{{ $data->category->name }}</td>
-                    <td>{{ $data->name }}</td>
-                    <td>{{ $data->price }}</td>
+                    <td>{{ $data->category->for }}</td>
+                    <td>{{ $data->product_name }}</td>
+                    <td>Rp.{{ number_format($data->price, '0', '.', '.') }},-</td>
                     <td>
                         <button type="button" class="table-btn px-4" data-bs-toggle="modal"
                             data-bs-target="#detailProduct{{ $data->id }}">
@@ -156,13 +180,22 @@
                                     @method('PUT')
                                     <div class="d-flex flex-column justify-content-center align-items-center">
                                         <div class="row mb-3">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <p class="mb-1" style="font-size: 14px;">Category</p>
-                                                <select class="form-control" name="category_id" id="categoryProductEdit">
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}" @selected($data->category_id == $category->id)>
-                                                            {{ $category->name }}</option>
-                                                    @endforeach
+                                                <select class="form-control" name="category_name" id="categoryProductNameEdit" required>
+                                                    <option value="Hat">Hat / Top</option>
+                                                    <option value="Jacket">Jacket</option>
+                                                    <option value="Tshirt">T Shirt</option>
+                                                    <option value="Pants">Pants</option>
+                                                    <option value="Shoes">Shoes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="mb-1" style="font-size: 14px;">Category</p>
+                                                <select class="form-control" name="category_for" id="categoryProductForEdit" required>
+                                                    <option value="Man">Man</option>
+                                                    <option value="Woman">Woman</option>
+                                                    <option value="Kids">Kids</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -171,7 +204,7 @@
                                                 <p class="mb-1" style="font-size: 14px;">Name</p>
                                                 <input id="nameEdit" type="text"
                                                     class="form-control @error('name') is-invalid @enderror"
-                                                    name="name" value="{{ $data->name }}" required
+                                                    name="product_name" value="{{ $data->product_name }}" required
                                                     placeholder="Product Name" autocomplete="name" autofocus>
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
@@ -215,6 +248,19 @@
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     name="image" required placeholder="Product Name"
                                                     autocomplete="image" autofocus>
+                                                @error('name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <p class="mb-1" style="font-size: 14px;">Quantity</p>
+                                                <input id="qtyAdd" type="number"
+                                                    class="form-control @error('name') is-invalid @enderror" name="qty" required
+                                                    placeholder="Quantity" autocomplete="qty" value="{{ $data->qty }}" autofocus>
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
