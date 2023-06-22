@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'email' => 'user@gmail.com',
                 'email_verified_at' => Carbon::now(),
                 'role' => 'user',
-                'password' => Hash::make('user1234'),
+                'password' => Hash::make('user123'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

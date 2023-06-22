@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Hot Products</h2>
+                        <h2>Hot Products <i class="fa-solid fa-fire-flame-curved"></i></h2>
                     </div>
                 </div>
             </div>
@@ -12,9 +12,9 @@
                 <div class="product_main">
                     @foreach ($datas as $data)
                         <div class="project_box mb-5">
-                            <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}" alt="#"
+                            <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}" alt="Product Image"
                                     width="110" /></div>
-                            <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
+                            <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
                                 Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                         </div>
                     @endforeach
@@ -55,12 +55,12 @@
                 </div>
                 <div class="row">
                     <div class="product_main">
-                        @foreach ($hats as $data)
+                        @foreach ($hats as $hat)
                             <div class="project_box mb-5">
-                                <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}"
-                                        alt="#" width="110" /></div>
-                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
-                                    Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
+                                <div class="dark_white_bg"><img src="{{ asset('storage/' . $hat->image) }}"
+                                        alt="Product Image" width="110" /></div>
+                                <a href="{{ url('/product/detail/' . $hat->id) }}">{{ $hat->name }}
+                                    Rp.{{ number_format($hat->price, '0', '.', '.') }},-</a>
                             </div>
                         @endforeach
                     </div>
@@ -77,8 +77,8 @@
                         @foreach ($jackets as $data)
                             <div class="project_box mb-5">
                                 <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}"
-                                        alt="#" width="110" /></div>
-                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
+                                        alt="Product Image" width="110" /></div>
+                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
                                     Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                             </div>
                         @endforeach
@@ -96,8 +96,8 @@
                         @foreach ($tshirts as $data)
                             <div class="project_box mb-5">
                                 <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}"
-                                        alt="#" width="110" /></div>
-                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
+                                        alt="Product Image" width="110" /></div>
+                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
                                     Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                             </div>
                         @endforeach
@@ -115,8 +115,8 @@
                         @foreach ($pants as $data)
                             <div class="project_box mb-5">
                                 <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}"
-                                        alt="#" width="110" /></div>
-                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
+                                        alt="Product Image" width="110" /></div>
+                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
                                     Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                             </div>
                         @endforeach
@@ -134,8 +134,8 @@
                         @foreach ($shoes as $data)
                             <div class="project_box mb-5">
                                 <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}"
-                                        alt="#" width="110" /></div>
-                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
+                                        alt="Product Image" width="110" /></div>
+                                <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
                                     Rp.{{ number_format($data->price, '0', '.', '.') }},-</a>
                             </div>
                         @endforeach
