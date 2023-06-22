@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->index();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->string('product_name')->index();
+            $table->string('name')->index();
             $table->integer('price');
             $table->string('desc');
             $table->string('image');
