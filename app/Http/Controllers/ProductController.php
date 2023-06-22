@@ -49,20 +49,20 @@ class ProductController extends Controller
             }
             return view('/product', ['datas' => $datas]);
         } else {
-            $hats = Product::whereHas('category',function ($query){
-                $query->where('name','Hat');
+            $hats = Product::whereHas('category', function($category) {
+                $category->where('name', '=', 'Hat');
             })->get();
-            $jackets = Product::whereHas('category',function ($query){
-                $query->where('name','Jacket');
+            $jackets = Product::whereHas('category', function($category) {
+                $category->where('name', '=', 'Jacket');
             })->get();
-            $tshirts = Product::whereHas('category',function ($query){
-                $query->where('name','Tshirt');
+            $tshirts = Product::whereHas('category', function($category) {
+                $category->where('name', '=', 'Tshirt');
             })->get();
-            $pants = Product::whereHas('category',function ($query){
-                $query->where('name','Pants');
+            $pants = Product::whereHas('category', function($category) {
+                $category->where('name', '=', 'Pants');
             })->get();
-            $shoes = Product::whereHas('category',function ($query){
-                $query->where('name','Shoes');
+            $shoes = Product::whereHas('category', function($category) {
+                $category->where('name', '=', 'Shoes');
             })->get();
             return view('product', [
                 'hats' => $hats,
@@ -135,7 +135,7 @@ class ProductController extends Controller
             }
         } elseif ($request->category_name == 'Pants') {
             if ($request->category_for == 'Man') {
-                $validate['category_id'] = 4;   
+                $validate['category_id'] = 4;
             } elseif ($request->category_for == 'Woman') {
                 $validate['category_id'] = 5;
             } elseif ($request->category_for == 'Kids') {
@@ -143,7 +143,7 @@ class ProductController extends Controller
             }
         } elseif ($request->category_name == 'Shoes') {
             if ($request->category_for == 'Man') {
-                $validate['category_id'] = 1;   
+                $validate['category_id'] = 1;
             } elseif ($request->category_for == 'Woman') {
                 $validate['category_id'] = 2;
             } elseif ($request->category_for == 'Kids') {
@@ -225,7 +225,7 @@ class ProductController extends Controller
             }
         } elseif ($request->category_name == 'Pants') {
             if ($request->category_for == 'Man') {
-                $validate['category_id'] = 4;   
+                $validate['category_id'] = 4;
             } elseif ($request->category_for == 'Woman') {
                 $validate['category_id'] = 5;
             } elseif ($request->category_for == 'Kids') {
@@ -233,7 +233,7 @@ class ProductController extends Controller
             }
         } elseif ($request->category_name == 'Shoes') {
             if ($request->category_for == 'Man') {
-                $validate['category_id'] = 1;   
+                $validate['category_id'] = 1;
             } elseif ($request->category_for == 'Woman') {
                 $validate['category_id'] = 2;
             } elseif ($request->category_for == 'Kids') {

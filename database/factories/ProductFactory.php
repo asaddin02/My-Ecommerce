@@ -19,9 +19,9 @@ class ProductFactory extends Factory
     {
         $data = 'https://themewagon.github.io/famms/images/p' . rand(1,12) . '.png';
         $desc = fake()->paragraph($nbSentences = 3,$variableNbSentences = true);
-        $limitedDesc = Str::words($desc, 254, '');
+        $limitedDesc = Str::limit($desc, 100);
         return  [
-            'product_name' => fake()->FirstNameMale(),
+            'name' => fake()->FirstNameMale(),
             'category_id' => fake()->numberBetween(1,15),
             'price' => fake()->numberBetween(100000,1000000),
             'desc' => $limitedDesc,

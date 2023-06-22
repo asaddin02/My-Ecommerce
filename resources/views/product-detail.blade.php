@@ -7,7 +7,7 @@
         <div class="card d-flex flex-column justify-content-center align-items-center border-0" style="width: 18rem;">
             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="Product Image">
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                <h2 class="card-title text-center mb-1 text-black fw-bold">{{ $product->name }}</h2>
+                <h2 class="card-title text-center mb-1 text-black fw-bold">{{ $product->product_name }}</h2>
                 <p class="card-text text-center mb-2">{{ $product->desc }}</p>
                 <p class="card-text text-start mb-2">Price : Rp.{{ number_format($product->price, '0', '.', '.') }},-</p>
                 <p class="cart-text text-start mb-2">Quantity : {{ $product->qty }} left</p>
