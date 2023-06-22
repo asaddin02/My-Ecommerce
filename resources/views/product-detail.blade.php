@@ -22,17 +22,17 @@
                         <a href="{{ url('/product') }}" class="btn btn-primary mx-2"><span>Buy Now</span> <i
                                 class="fa-solid fa-hand-holding-dollar"></i></a>
                         <div>
-                            <form id="add-cart-form" class="d-flex align-items-end" action="{{ route('cart-list.store') }}" method="POST">
+                            <form class="d-flex align-items-end">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <div>
-                                    <button class="btn btn-primary mx-2" type="submit"><span>Add
+                                    <button class="btn btn-primary mx-2" id="addcart" type="submit"><span>Add
                                             To Cart</span> <i class="fa-solid fa-cart-shopping"></i></button>
                                 </div>
                                 <div>
                                     <span class="mx-2">Quantity</span>
-                                    <input type="number" name="qty" required autofocus>
+                                    <input type="number" name="qty" id="kolom_qty" required autofocus>
                                 </div>
                                 <input type="hidden" name="price_items" value="{{ $product->price }}">
                             </form>

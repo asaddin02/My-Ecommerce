@@ -49,16 +49,21 @@ class ProductController extends Controller
             }
             return view('/product', ['datas' => $datas]);
         } else {
-            $hats = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Hat')->get();
-            $jackets = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->where('categories.name', '=', 'Jacket')->get();
-            $tshirts = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->where('categories.name', '=', 'Tshirt')->get();
-            $pants = Product::join('categories', 'products.category_id', '=', 'categories.id')
-                ->where('categories.name', '=', 'Pants')->get();
-            $shoes = Product::join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('categories.name', '=', 'Shoes')->get();
+            $hats = Product::whereHas('category',function ($query){
+                $query->where('name','Hat');
+            })->get();
+            $jackets = Product::whereHas('category',function ($query){
+                $query->where('name','Jacket');
+            })->get();
+            $tshirts = Product::whereHas('category',function ($query){
+                $query->where('name','Tshirt');
+            })->get();
+            $pants = Product::whereHas('category',function ($query){
+                $query->where('name','Pants');
+            })->get();
+            $shoes = Product::whereHas('category',function ($query){
+                $query->where('name','Shoes');
+            })->get();
             return view('product', [
                 'hats' => $hats,
                 'jackets' => $jackets,

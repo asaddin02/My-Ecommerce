@@ -1,6 +1,5 @@
 // add product to cart
-// var csrfToken = $('meta[name="csrf-token"]').attr("content");
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+var csrfToken = $('meta[name="csrf-token"]').attr("content");
 $(document).ready(function () {
     $("#addcart").on("click", function (e) {
         e.preventDefault();
@@ -9,7 +8,7 @@ $(document).ready(function () {
         var quantity = $('[name="qty"]').val();
         var price = $('[name="price_items"]').val();
         $.ajax({
-            url: "http://127.0.0.1:8000/cart-list",
+            url: "http://localhost:8000/cart-list",
             type: "post",
             data: {
                 product_id: productId,
@@ -19,11 +18,15 @@ $(document).ready(function () {
                 _token: csrfToken,
             },
             success: function (response) {
-                $("#cart-logo").removeClass("fa-cart-shopping");
-                $("#cart-logo").addClass("fa-pen");
-                if (response.success) {
+                if (response.type === 'cartinsert') {
+                    $("#cart-logo").removeClass("fa-cart-shopping");
+                    $("#cart-logo").addClass("fa-pen");
+                    $("#kolom_qty").val('');
                     var successMessage = response.success;
-                    $("#alert-success").html(successMessage).show();
+                    $("#alert").html(successMessage).show();
+                } else if (response.type === 'cartres') {
+                    var successMessage = response.success;
+                    $("#alert").html(successMessage).show();
                 }
             },
             error: function (err) {
