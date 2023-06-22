@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('desc');
             $table->string('image');
             $table->string('qty');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
