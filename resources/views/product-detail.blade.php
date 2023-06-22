@@ -9,7 +9,8 @@
             <div class="card-body d-flex flex-column justify-content-center align-items-center">
                 <h2 class="card-title text-center mb-1 text-black fw-bold">{{ $product->name }}</h2>
                 <p class="card-text text-center mb-2">{{ $product->desc }}</p>
-                <p class="card-text text-start mb-2">Rp.{{ number_format($product->price, '0', '.', '.') }},-</p>
+                <p class="card-text text-start mb-2">Price : Rp.{{ number_format($product->price, '0', '.', '.') }},-</p>
+                <p class="cart-text text-start mb-2">Quantity : {{ $product->qty }} left</p>
                 <div class="d-flex my-2">
                     @guest
                         <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#login">
@@ -57,7 +58,7 @@
                         <div class="project_box mb-5">
                             <div class="dark_white_bg"><img src="{{ asset('storage/' . $data->image) }}" alt="#"
                                     width="110" /></div>
-                            <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->name }}
+                            <a href="{{ url('/product/detail/' . $data->id) }}">{{ $data->product_name }}
                                 ${{ $data->price }}</a>
                         </div>
                     @endforeach
