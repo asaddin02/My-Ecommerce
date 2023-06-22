@@ -31,7 +31,7 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $data->product->image }}</td>
-                        <td>{{ $data->product->name }}</td>
+                        <td>{{ $data->product->product_name }}</td>
                         <td>
                             <form action="{{ route('cart-list.update', $data->id) }}" method="POST"
                                 class="d-flex justify-content-center align-items-center">

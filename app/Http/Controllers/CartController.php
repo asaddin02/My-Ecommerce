@@ -101,26 +101,26 @@ class CartController extends Controller
             'qty' => ['required'],
         ]);
         $validate['price_items'] = $request->price_items * $request->qty;
-        // $productId = Cart::find($request->product_id);
-        // $userId = Cart::find($request->user_id);
         $cart = Cart::where('user_id', $request->user_id)->where('product_id', $request->product_id)->first();
-        if ($request->user_id == $cart->user_id && $request->product_id == $cart->product_id) {
+        if (isset($cart)) {
             $cart->update([
-                'qty' => $request->qty + $cart->qty
+                'qty' => $request->qty + $cart->qty,
+                'price_items' => $request->qty * $cart->price_items
             ]);
-            dd($cart);
-        } else {
-            $alert = Cart::create($validate);
-        }
-        if ($alert) {
-            $response = [
-                'success' => session('success'),
-                'error' => session('error')
+            $cartres = [
+                'success' => session('success','success update your item'),
+                'error' => session('error','error'),
+                'type' => 'cartes'
             ];
-            return response()->json($response);
-        } else {
-            return response()->with('error', 'Error, Product not added to cart');
+            return response()->json($cartres);
         }
+        Cart::create($validate);
+        $response = [
+            'success' => session('success','success add your item'),
+            'error' => session('error','error'),
+            'type' => 'cartinser'
+        ];
+        return response()->json($response);
     }
 
     /**

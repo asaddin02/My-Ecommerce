@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cart_id');
+            $table->foreignId('cart_id')->index();
             $table->foreign('cart_id')->references('id')->on('carts');
             $table->date('tgl_transaksi');
             $table->timestamps();
